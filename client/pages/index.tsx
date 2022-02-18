@@ -1,13 +1,13 @@
 import { Footer, Navbar, Services, Transactions, Welcome } from '@components/ui'
 
 const style = {
-  pageWrapper: 'min-h-screen',
+  wrapper: 'min-h-screen',
 }
 
 function Home() {
   return (
-    <div className={style.pageWrapper}>
-      <div className="navbarWrapper">
+    <div className={style.wrapper}>
+      <div className="navbar-wrapper">
         <Navbar />
         <Welcome />
       </div>
