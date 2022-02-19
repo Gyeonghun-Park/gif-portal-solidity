@@ -2,6 +2,7 @@ import { AiFillPlayCircle } from 'react-icons/ai'
 import { SiEthereum } from 'react-icons/si'
 import { BsInfoCircle } from 'react-icons/bs'
 import { Loader } from '@components/ui'
+import { useWeb3 } from '@components/providers'
 
 const tableCommonStyles = `min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white`
 
@@ -35,11 +36,30 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     min={0}
     value={value}
     onChange={(e) => handleChange(e, name)}
-    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+    className="white-glassmorphism my-2 w-full rounded-sm border-none bg-transparent p-2 text-sm text-white outline-none"
   />
-);
+)
 
 function Welcome() {
+  const {
+    currentAccount,
+    connectWallet,
+    handleChange,
+    sendTransaction,
+    formData,
+    isLoading,
+  } = useWeb3()
+
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData
+
+    e.preventDefault()
+
+    if (!addressTo || !amount || !keyword || !message) return
+
+    sendTransaction()
+  }
+
   return (
     <div className={style.wrapper}>
       <div className={style.leftContainer}>
@@ -52,16 +72,14 @@ function Welcome() {
             Crypto.
           </p>
 
-          {!false && (
+          {!currentAccount && (
             <button
               className={style.connect}
               type="button"
-              onClick={null}
+              onClick={connectWallet}
             >
               <AiFillPlayCircle className={style.connectIcon} />
-              <p className={style.connectText}>
-                Connect Wallet
-              </p>
+              <p className={style.connectText}>Connect Wallet</p>
             </button>
           )}
 
@@ -93,12 +111,8 @@ function Welcome() {
                 <BsInfoCircle fontSize={17} color="#fff" />
               </div>
               <div>
-                <p className={style.cardAddress}>
-                  0x23afd...f22sf
-                </p>
-                <p className={style.cardEthText}>
-                  Ethereum
-                </p>
+                <p className={style.cardAddress}>0x23afd...f22sf</p>
+                <p className={style.cardEthText}>Ethereum</p>
               </div>
             </div>
           </div>
@@ -108,36 +122,36 @@ function Welcome() {
               placeholder="Address To"
               name="addressTo"
               type="text"
-              handleChange={null}
+              handleChange={handleChange}
             />
             <Input
               placeholder="Amount (ETH)"
               name="amount"
               type="number"
-              handleChange={null}
+              handleChange={handleChange}
             />
             <Input
               placeholder="Keyword (Gif)"
               name="keyword"
               type="text"
-              handleChange={null}
+              handleChange={handleChange}
             />
             <Input
               placeholder="Enter Message"
               name="message"
               type="text"
-              handleChange={null}
+              handleChange={handleChange}
             />
 
             <div className={style.formLine} />
 
-            {false ? (
+            {isLoading ? (
               <Loader />
             ) : (
               <button
                 className={style.formButton}
                 type="button"
-                onClick={null}
+                onClick={handleSubmit}
               >
                 Send now
               </button>
