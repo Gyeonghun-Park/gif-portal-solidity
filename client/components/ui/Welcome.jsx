@@ -9,7 +9,7 @@ const style = {
   wrapper: `flex w-full items-center justify-center`,
   leftContainer: `mf:flex-row flex flex-col items-start justify-between py-12 px-4 md:p-20`,
   title: `mf:mr-10 flex flex-1 flex-col items-start justify-start`,
-  titleLarge: `text-3xl sm:text-5xl text-white text-gradient py-1`,
+  titleLarge: `text-3xl sm:text-5xl text-gradient py-1`,
   titleSmall: `mt-5 w-11/12 text-left text-base font-light text-white md:w-9/12`,
   connect: `my-5 flex cursor-pointer flex-row items-center justify-center rounded-full bg-[#2952e3] p-3 hover:bg-[#2546bd]`,
   connectIcon: `mr-2 text-white`,
@@ -32,6 +32,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     placeholder={placeholder}
     type={type}
     step="0.0001"
+    min={0}
     value={value}
     onChange={(e) => handleChange(e, name)}
     className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
@@ -50,6 +51,7 @@ function Welcome() {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Crypto.
           </p>
+
           {!false && (
             <button
               className={style.connect}
