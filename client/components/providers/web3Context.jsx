@@ -83,7 +83,7 @@ export const Web3Provider = ({ children }) => {
       if (accounts.length) {
         setCurrentAccount(accounts[0])
 
-        //getAllTransactions()
+        getAllTransactions()
       } else {
         console.log('No accounts found')
       }
@@ -163,7 +163,8 @@ export const Web3Provider = ({ children }) => {
           await transactionsContract.getTransactionCount()
 
         setTransactionCount(transactionsCount.toNumber())
-        window.location.reload()
+
+        // scroll
       } else {
         console.log('No ethereum object')
       }
@@ -176,7 +177,7 @@ export const Web3Provider = ({ children }) => {
 
   useEffect(() => {
     checkIfWalletIsConnect()
-    //checkIfTransactionsExists()
+    checkIfTransactionsExists()
   }, [transactionCount])
 
   return (
