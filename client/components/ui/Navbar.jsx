@@ -6,8 +6,9 @@ import logo from '@images/logo.png'
 
 const style = {
   wrapper: `flex w-full items-center justify-between p-4 md:justify-center`,
-  logoContainer: `flex-initial items-center justify-center md:flex-[0.5]`,
-  logoImage: `w-32 cursor-pointer`,
+  logoContainer: `flex items-center md:flex-[0.5]`,
+  logoImage: `cursor-pointer`,
+  logoText: `my-2 w-full text-xl text-white`,
   navItems: `hidden flex-initial list-none flex-row items-center justify-between text-white md:flex`,
   navLogin: `mx-4 cursor-pointer rounded-full bg-[#2952e3] py-2 px-7 hover:bg-[#2546bd]`,
   mobileWrapper: `relative flex`,
@@ -28,8 +29,9 @@ function Navbar() {
     <nav className={style.wrapper}>
       <div className={style.logoContainer}>
         <div className={style.logoImage}>
-          <Image src={logo} alt="logo" height={40} width={40} />
+          <Image src={logo} alt="logo" height={50} width={50} />
         </div>
+        <div className={style.logoText}>Grypto</div>
       </div>
       <ul className={style.navItems}>
         {navItems.map((item, index) => (
