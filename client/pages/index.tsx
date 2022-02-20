@@ -7,7 +7,7 @@ const style = {
 function Home() {
   return (
     <div className={style.wrapper}>
-      <div className="navbar-wrapper">
+      <div className="gradient-bg-welcome">
         <Navbar />
         <Welcome />
       </div>
