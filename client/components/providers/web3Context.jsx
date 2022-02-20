@@ -1,11 +1,13 @@
 import { useEffect, useState, createContext, useContext } from 'react'
 import { ethers } from 'ethers'
+import { animateScroll as scroll } from 'react-scroll'
 import { contractABI, contractAddress } from '@lib/constants'
 
 export const Web3Context = createContext()
 
 let ethereum
 let transactionCountLocal
+let isConnected = false
 
 if (typeof window !== 'undefined') {
   ethereum = window.ethereum
@@ -82,7 +84,7 @@ export const Web3Provider = ({ children }) => {
 
       if (accounts.length) {
         setCurrentAccount(accounts[0])
-
+        isConnected = true
         getAllTransactions()
       } else {
         console.log('No accounts found')
@@ -158,13 +160,12 @@ export const Web3Provider = ({ children }) => {
         await transactionHash.wait()
         console.log(`Success - ${transactionHash.hash}`)
         setIsLoading(false)
+        scroll.scrollToBottom()
 
         const transactionsCount =
           await transactionsContract.getTransactionCount()
 
         setTransactionCount(transactionsCount.toNumber())
-
-        // scroll
       } else {
         console.log('No ethereum object')
       }
@@ -177,7 +178,9 @@ export const Web3Provider = ({ children }) => {
 
   useEffect(() => {
     checkIfWalletIsConnect()
-    checkIfTransactionsExists()
+    if (isConnected) {
+      checkIfTransactionsExists()
+    }
   }, [transactionCount])
 
   return (
